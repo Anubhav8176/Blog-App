@@ -15,7 +15,7 @@ interface APIService {
     @POST("add/")
     fun add(@Body blog: Blog): Call<String>
 
-    @DELETE("delete/{id}")
+    @DELETE("delete/{id}/")
     fun delete(@Path("id") id: Int): Call<String>
 
     @GET("{id}/")

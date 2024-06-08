@@ -92,7 +92,7 @@ fun MainPage(navController: NavController, viewModel: MainViewModel = MainViewMo
                 items(blogs.size){it->
                     ImageCard(
                         viewModel,
-                        item = it,
+                        item = blogs[it].id,
                         title = blogs[it].title,
                         description = blogs[it].content,
                         modifier = Modifier.padding(5.dp))

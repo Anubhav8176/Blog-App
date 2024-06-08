@@ -12,6 +12,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -59,54 +60,63 @@ fun AddBlog(navController: NavController, viewModel: MainViewModel = MainViewMod
         }
 
     ){values->
-        Card(
+        Column (
             modifier = Modifier
-                .padding(values),
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 10.dp
-            ),
-            colors = CardDefaults.cardColors(backContainer)
-        ) {
-            Column(
+                .fillMaxSize()
+                .padding(values)
+        ){
+            Card(
                 modifier = Modifier
                     .padding(10.dp)
+                    .fillMaxSize(),
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = 10.dp
+                ),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                ),
             ) {
-                OutlinedTextField(
-                    value = title,
-                    label = { Text("Enter the title!") },
+                Column(
                     modifier = Modifier
-                        .padding(5.dp)
-                        .fillMaxWidth(),
-                    onValueChange = { title = it },
-                    shape = RoundedCornerShape(20.dp),
-                    maxLines = 3
-                )
-
-                OutlinedTextField(
-                    value = blogText,
-                    label = { Text("Enter the blog!") },
-                    modifier = Modifier
-                        .padding(5.dp)
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.8f),
-                    onValueChange = { blogText = it },
-                    shape = RoundedCornerShape(20.dp),
-                    maxLines = 10
-                )
-
-                Spacer(modifier = Modifier.size(50.dp))
-
-                Button(
-                    onClick = {
-                        val data = Blog(null ,title, blogText)
-                        viewModel.postData(data)
-                        navController.navigate("mainPage")
-                    },
-                    shape = RoundedCornerShape(18.dp),
-                    modifier = Modifier
-                        .padding(8.dp)
+                        .padding(10.dp)
                 ) {
-                    Text(text = "Add Blog!")
+                    OutlinedTextField(
+                        value = title,
+                        label = { Text("Enter the title!") },
+                        modifier = Modifier
+                            .padding(5.dp)
+                            .fillMaxWidth(),
+                        onValueChange = { title = it },
+                        shape = RoundedCornerShape(20.dp),
+                        maxLines = 3
+                    )
+
+                    OutlinedTextField(
+                        value = blogText,
+                        label = { Text("Enter the blog!") },
+                        modifier = Modifier
+                            .padding(5.dp)
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.8f),
+                        onValueChange = { blogText = it },
+                        shape = RoundedCornerShape(20.dp),
+                        maxLines = 10
+                    )
+
+                    Spacer(modifier = Modifier.size(50.dp))
+
+                    Button(
+                        onClick = {
+                            val data = Blog(-1, title, blogText)
+                            viewModel.postData(data)
+                            navController.navigate("mainPage")
+                        },
+                        shape = RoundedCornerShape(18.dp),
+                        modifier = Modifier
+                            .padding(8.dp)
+                    ) {
+                        Text(text = "Add Blog!")
+                    }
                 }
             }
         }
